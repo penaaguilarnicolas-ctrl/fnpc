@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pregunta</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      position: relative;
+      width: 420px;
+      height: 180px;
+      margin: auto;
+    }
+
+    button {
+      position: absolute;
+      padding: 15px 40px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, left 0.3s ease, top 0.3s ease;
+    }
+
+    #btnSi {
+      background-color: #2ecc71;
+      color: white;
+      left: 0;
+      top: 70px;
+      z-index: 2;
+      transform-origin: left center; /* crece hacia la derecha */
+    }
+
+    #btnNo {
+      background-color: #e74c3c;
+      color: white;
+      left: 260px; /* posición inicial a la derecha */
+      top: 70px;
+      z-index: 1;
+    }
+
+    .felicitaciones {
+      display: none;
+      font-size: 28px;
+      color: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="texto">Amor, sabes lo mucho que te quiero, lo importante y necesaria que eres en mi vida, por eso deseo y ruego que dios me permita pasar toda mi vida contigo. Fla casarte conmigo? (de mentirita aun porque no tenemos plata)</h1>
+
+    <div class="buttons" id="botones">
+      <button id="btnSi">Sí</button>
+      <button id="btnNo">No</button>
+    </div>
+
+    <div class="felicitaciones" id="felicitaciones">
+      	¡Felicidades! Somos marido y mujer! MUAK
+    </div>
+  </div>
+
+  <script>
+    const btnNo = document.getElementById('btnNo');
+    const btnSi = document.getElementById('btnSi');
+    const texto = document.getElementById('texto');
+    const botones = document.getElementById('botones');
+    const felicitaciones = document.getElementById('felicitaciones');
+
+    let escalaSi = 1;
+    let contador = 0;
+
+    btnNo.addEventListener('click', () => {
+      contador++;
+
+      // El botón Sí crece hacia la DERECHA
+      escalaSi += 0.6;
+      btnSi.style.transform = `scale(${escalaSi})`;
+
+      // El botón No se desplaza hacia la DERECHA
+      btnNo.style.left = `${260 + contador * 35}px`;
+
+      // Reinicio
+      if (contador >= 10) {
+        setTimeout(() => {
+          escalaSi = 1;
+          contador = 0;
+          btnSi.style.transform = 'scale(1)';
+          btnNo.style.left = '260px';
+        }, 500);
+      }
+    });
+
+    btnSi.addEventListener('click', () => {
+      texto.style.display = 'none';
+      botones.style.display = 'none';
+      felicitaciones.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
